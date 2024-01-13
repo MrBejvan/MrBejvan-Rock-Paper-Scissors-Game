@@ -25,12 +25,12 @@ int player_selection()
     cin >> player_choice;
     if (cin.fail())
     {
-        cout << "Error: Not a valid input." << endl;
+        cout << "Error: Not a valid input. " << endl;
         return 0;
     }
     else
     {
-        cout << "You have selected " << player_choice << ".";
+        cout << "You have selected " << player_choice << ". ";
     }
 
     return player_choice;
@@ -41,34 +41,33 @@ int machine_selection()
 {
     int machine_choice;
     machine_choice = rand() % 3 + 1;
-    cout << "The machine has selected " << machine_choice << ".";
+    cout << "The machine has selected " << machine_choice << ". ";
     return machine_choice;
 }
 
 //This function determines the victor//
-void determine_victor(int player, int machine)
+int determine_victor(int player, int machine)
 {
-
+    int p_score;
+    int m_score;
     if (player != machine)
     {
         if ((player == 1 && machine == 2) || (player == 2 && machine == 3) || (player == 3 && machine == 1))
         {
-            cout << "Machine scores 1 point." << endl;
-            machine_score++;
+            cout << "Machine scores 1 point. " << endl;
+            m_score++;
         }
         else
         {
-            cout << "You win! Player scores 1 point." << endl;
-            player_score++;
+            cout << "You win! Player scores 1 point. " << endl;
+            p_score++;
         }
     }
     else
     {
-        cout << "Tie game!" << endl;
+        cout << "Tie game! " << endl;
     }
-
-    cout << "Player score: " << player_score << " vs Machine score: " << machine_score;
-
+    return(p_score, m_score);
 }
 
 //This function operates as a play again feature//
@@ -115,9 +114,26 @@ int main()
         {
             int machine_choice = machine_selection();
             determine_victor(player_choice, machine_choice);
+            if (determine_victor(player_choice, machine_choice) == 0, 1)
+            {
+                machine_score++;
+                
+            }
+            else if(determine_victor(player_choice, machine_choice) == 1, 0)
+            {
+                player_score++;
+                
+            }
+            else
+            {
+                cout << endl;
+            }
 
             game_counter++;
+            cout << "Machine score: " << machine_score << endl;
+            cout << "Player score: " << player_score << endl;
             cout << "Total games played: " << game_counter << endl;
+
         }
 
         cout << "Play again? [y/n]" << endl;
